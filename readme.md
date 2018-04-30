@@ -34,7 +34,7 @@ Tested on Windows 10 with Python 3.6.
 > python smb.py
 ```
 
-![Simodont model builder screenshot](/media/Capture.png)
+![Simodont model builder screenshot](/media/Capture.PNG)
 
 ## How to use
 
