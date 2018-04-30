@@ -1,0 +1,51 @@
+<Tooth name="tooth_MAN002001"
+       description=""
+       position="0"
+       densityData="urn:moog.com:/lessons/MAN002001/density_data/density.nrrd"
+       colorData="urn:moog.com:/lessons/MAN002001/color_data/color.nrrd"
+       segmentData="urn:moog.com:/lessons/MAN002001/segment_data/segment.nrrd"
+       isoData="urn:moog.com:/lessons/MAN002001/iso_data/iso.nrrd"
+       isoValue="0"
+       dataScale="1"
+       dataBias="-0"
+       lowResVersion=""
+>
+
+  <SegmentInfo>
+      <Segment name="Pulp chamber" segmentId="0" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.933333 0.439216 0.141176 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Pulp tissue" segmentId="1" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.996078 0.945098 0.00784314 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Dentine" segmentId="2" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.980392 0.67451 0.0941176 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Caries" segmentId="4" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.243137 0.180392 0.52549 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Enamel" segmentId="5" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.8 0.113725 0.172549 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="ADJ Caries" segmentId="6" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0.901961 0.286275 0.14902 1" />
+        </Color>
+      </Segment>
+  </SegmentInfo>
+</Tooth>

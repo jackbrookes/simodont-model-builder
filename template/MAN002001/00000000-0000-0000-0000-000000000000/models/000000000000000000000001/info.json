@@ -1,0 +1,40 @@
+{
+  "info": {
+    "copyright": "000000000000000000000001",
+    "name": "MAN002001",
+    "description": {
+      "en-US" : ""
+    },
+    "type": "permanent",
+    "preview": "screenshot.png",
+    "definition": "urn:moog.com:/lessons/MAN002001/MAN002001.xml",
+    "cmeversion": "1.7.0",
+    "languages": [
+      "en-US" 
+    ] 
+  },
+  "photos" : [],
+  "teeth" : [ 
+  { 
+    "idealPreps" : [],
+    "segments" : [
+      "Pulp chamber", 
+      "Pulp tissue", 
+      "Dentine", 
+      "Caries", 
+      "Enamel", 
+      "ADJ Caries"
+    ], 
+    "position" : 11,
+    "x3d" : null, 
+    "definition" : null, 
+    "description" : { 
+      "en-US" : "" 
+    }, 
+    "photos" : { 
+      "intraoral" : [], 
+      "xray" : [ ] 
+    }
+  }
+  ]
+}

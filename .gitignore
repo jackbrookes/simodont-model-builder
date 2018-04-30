@@ -1,3 +1,6 @@
+logs/*
+documentation.docx
+
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -108,3 +111,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+~$cumentation.docx

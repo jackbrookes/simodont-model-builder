@@ -1,0 +1,11 @@
+<Lesson name="MAN002001"
+        description=""
+        backgroundColor="0.619608 0.619608 0.619608"
+        drillableTooth="11"
+        preferredGlobalPosition="0 0 0"
+        preferredGlobalOrientation="1 0 0 0" >
+    <Jaw name="jaw_MAN002001"
+         url="urn:moog.com:/lessons/MAN002001/jaws/jaw_MAN002001.xml"
+         translation="0 0 0"
+         rotation="1 0 0 0" />
+</Lesson>

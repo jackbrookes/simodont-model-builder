@@ -1,0 +1,20 @@
+{ 
+    "_id" : "564b046fcf51fc1bd439a0cd", 
+    "info" : {
+        "marketId" : "7a9ac1208bd711e596aa81bb51804558", 
+        "revision" : 1, 
+        "version" : "0.0.1"
+    }, 
+    "logo" : "leeds-dental-institute_01.jpg", 
+    "institute" : "Leeds School of Dentistry", 
+    "address" : {
+        "street" : "Woodhouse Lane", 
+        "postalCode" : "LS2 9JT", 
+        "city" : "Leeds", 
+        "country" : "United Kingdom", 
+        "phone" : "+44-(0)113-243-1762", 
+        "email" : "a.j.keeling@leeds.ac.uk"
+    }, 
+    "url" : "http://www.leeds.ac.uk/",
+    "abbreviation": ""    
+}

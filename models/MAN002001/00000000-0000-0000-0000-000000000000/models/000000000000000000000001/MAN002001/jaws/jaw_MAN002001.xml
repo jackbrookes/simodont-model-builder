@@ -1,0 +1,9 @@
+<Jaw name="jaw_MAN002001"
+     description=""
+     position="upper"
+     jawModelPath="" >
+    <Tooth position="11"
+           url="urn:moog.com:/lessons/MAN002001/teeth/tooth_MAN002001.xml"
+           translation="0 0 0  "
+           rotation="1 0 0 0"   />
+</Jaw>
