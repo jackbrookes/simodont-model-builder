@@ -12,21 +12,29 @@ Tested on Windows 10 with Python 3.6.
 
 2. In a command prompt, clone this repository (or download as a `.zip`)
 
-`> git clone https://github.com/jackbrookes/simodont-model-builder`
+```
+> git clone https://github.com/jackbrookes/simodont-model-builder
+```
 
 3. Go to new directory
 
-`> cd simodont-model-builder`
+```
+> cd simodont-model-builder
+```
 
 4. Install requirements
 
-`> pip install requirements.txt`
+```
+> pip install requirements.txt
+```
 
 5. Run the GUI
 
-`> python smb.py`
+```
+> python smb.py
+```
 
-![Simodont model builder screenshot](/media/screenshot.png)
+![Simodont model builder screenshot](/media/Capture.png)
 
 ## How to use
 
