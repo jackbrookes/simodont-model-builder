@@ -40,6 +40,10 @@ Tested on Windows 10 with Python 3.6.
 
 Information available in a PDF [/media/information.pdf](/media/information.pdf).
 
+⚠️ NOTE ⚠️
+The snapshot system can interfere with the models. When importing the model, make sure to disable any snapshot features.
+
+
 ## Extending the Simodont Model Builder
 
 Users can create their own Python + Tkinter programs - "generators" - which are called upon by the Simodont Model Builder to generate data. Several are pre-installed in the generators folder and can be used as a basis for custom generators. 
