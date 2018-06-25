@@ -18,12 +18,10 @@
   { 
     "idealPreps" : [],
     "segments" : [
-      "Pulp chamber", 
-      "Pulp tissue", 
-      "Dentine", 
-      "Caries", 
-      "Enamel", 
-      "ADJ Caries"
+      "Empty", 
+      "Target", 
+      "Leeway", 
+      "Container"
     ], 
     "position" : 11,
     "x3d" : null, 

@@ -34,6 +34,11 @@ Tested on Windows 10 with Python 3.6.
 > python smb.py
 ```
 
+
+More help:
+https://stackoverflow.com/questions/29846087/microsoft-visual-c-14-0-is-required-unable-to-find-vcvarsall-bat
+
+
 ![Simodont model builder screenshot](/media/Capture.PNG)
 
 ## How to use
