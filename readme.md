@@ -25,7 +25,7 @@ Tested on Windows 10 with Python 3.6.
 4. Install requirements
 
 ```
-> pip install requirements.txt
+> pip install -r requirements.txt
 ```
 
 5. Run the GUI
