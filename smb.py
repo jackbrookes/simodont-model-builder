@@ -29,6 +29,7 @@ import zipfile
 from scipy.ndimage.interpolation import zoom as scipyzoom
 import traceback
 import datetime
+import json
 
 CURRDIR = os.path.dirname(__file__)
 sys.path.append(os.path.join(CURRDIR, "modules"))
@@ -321,6 +322,9 @@ class App(tk.Tk):
             filemenu.add_command(label="New model",
                                  command=new_model)
 
+            filemenu.add_command(label="Load layers from .json",
+                                 command=load_layers_json)
+
             filemenu.add_command(label="Load model folder",
                                  command=load_model_folder)
 
@@ -328,6 +332,9 @@ class App(tk.Tk):
                                  command=load_model_zip)
 
             filemenu.add_separator()
+
+            filemenu.add_command(label="Save layers as .json",
+                                 command=save_layers_json)
 
             filemenu.add_command(label="Export model .zip folder",
                                  command=export_model_folder)
@@ -426,6 +433,29 @@ class LayerSystem(tk.Frame):
             l.destroy()
         self.layers = []
         self.render()
+
+    def get_layers_data(self):
+        return [l.to_dict() for l in self.layers]        
+
+    def layers_from_dictlist(self, layerlist):
+        for layer in layerlist:
+            if layer["type"] == "mask":
+                newlayer = self.Mask(
+                    self, layer["data"], layer["name"], layer["gen"])                
+            elif layer["type"] == "layer":
+                newlayer = self.Layer(
+                    self, layer["data"], layer["name"], layer["gen"])
+                newlayer.set_composites(layer["compmodes"])
+                newlayer.set_opacities(layer["opacities"])
+
+            else:
+                raise Exception("Invalid json value for key: 'type'")
+
+            self.layers.append(newlayer)
+
+        self.update_layers()
+        self.render()
+
 
     def layer_from_data(self, data, name, gen="FILE"):
         self.layers.append(self.Layer(self, data, name, gen))
@@ -606,6 +636,11 @@ class LayerSystem(tk.Frame):
                            "Move {} up".format(objectname),
                            self.move_up),
 
+                           ("duplicate",
+                           "D",
+                           "Duplicate {}".format(objectname),
+                           self.duplicate),
+
                           ("down",
                            u"\u25BC",
                            "Move {} down".format(objectname),
@@ -617,8 +652,7 @@ class LayerSystem(tk.Frame):
                 c = i // nr
                 make_icon(*args, r, c)
                 i += 1
-                # skip idx 4
-                i = i + 1 if i == 4 else i
+
 
         def toggle_visible(self):
             # change icon
@@ -693,6 +727,19 @@ class LayerSystem(tk.Frame):
 
             self.maskdata = 255 - self.maskdata
             self.parent.render()
+
+        def to_dict(self):
+            data = {}
+            for k in self.data:
+                if not self.data[k] is None:
+                    data[k] = self.data[k].tolist()
+
+            return {
+                "type": "mask",
+                "name": self.layer_name_var.get(),
+                "gen": self.gen,
+                "data": data,
+            }
 
     class Layer(LayerObject):
         comp_functions = ("", "REPLACE", "ADD", "MULTIPLY", "DISABLED")
@@ -784,6 +831,10 @@ class LayerSystem(tk.Frame):
                                 command=parent.render)
             bx.grid(row=0, column=i, sticky="ew")
             bx.config(width=self.max_comp_width)
+
+            if not "segment" in data:
+                data["segment"] = None
+
             if data['segment'] is None:
                 svar.set(self.segment_functions[-1])  # disabled
                 bx.state(["disabled"])
@@ -832,6 +883,29 @@ class LayerSystem(tk.Frame):
                        (tempdata + amount).astype(np.uint8))
             self.data['segment'] = tempdata
             self.parent.render()
+
+        def set_composites(self, new_composites):
+            for comp_mode, comp_value in new_composites.items():
+                self.composites[comp_mode].set(comp_value)
+
+        def set_opacities(self, new_opacities):
+            for comp_mode, opacity_value in new_opacities.items():
+                self.opacities[comp_mode].set(opacity_value)
+
+        def to_dict(self):
+            data = {}
+            for k in self.data:
+                if not self.data[k] is None:
+                    data[k] = self.data[k].tolist()
+
+            return {
+                "type": "layer",
+                "compmodes": {mode: self.composites[mode].get() for mode in TASKMODEL.modes},
+                "opacities": {cmode: self.opacities[cmode].get() for cmode in TASKMODEL.compmodes},
+                "name": self.layer_name_var.get(),
+                "gen": self.gen,
+                "data": data
+            }
 
 
 class ModelViewerWidget(tk.Frame):
@@ -1574,15 +1648,12 @@ class TaskModel():
         shutil.move(datafolder, target)
 
         # move all files to zip file
-        for dirpath,dirs,files in os.walk(tempfolder):
+        for dirpath, dirs, files in os.walk(tempfolder):
             for f in files:
                 fn = os.path.join(dirpath, f)
                 relname = os.path.relpath(fn, tempfolder)
                 zip_file.write(fn, relname)
 
-
-        # target = os.path.join(newfolder, newname)
-        # shutil.move(tempfolder, target)
 
     def replace_screenshot(self):
         images, names = zip(*APP.main_mvw.get_images())
@@ -1626,6 +1697,26 @@ def data3d_to_mode(mode, data):
     elif mode == "iso":
         return data
 
+def load_layers_json():
+    initial = os.path.join(CURRDIR, "layers")
+    filetypes = [('Custom .json file', '*.json')]
+    raw_file_path = filedialog.askopenfilename(initialdir=initial,
+                                            title="Load .json layers",
+                                            parent=APP,
+                                            defaultextension = '.zip',
+                                            filetypes = filetypes)
+    
+    if raw_file_path:
+        file_path = os.path.normpath(raw_file_path)
+        with open(file_path) as f:
+            input_dict = json.load(f)
+
+        APP.layersystem.clear()
+        APP.main_iw.set_shape(input_dict["shape"])
+        APP.main_iw.voxel_size.text = input_dict["spacing"]
+        APP.layersystem.layers_from_dictlist(input_dict["layers"])
+        
+
 
 def load_model_zip():
     initial = os.path.join(CURRDIR, "models")
@@ -1666,8 +1757,29 @@ def load_model_folder():
         except FileNotFoundError:
             messagebox.showinfo("Error", "Invalid folder")
 
+def save_layers_json():
+    indir = os.path.join(CURRDIR, "layers")
+    defaultname = TASKMODEL.gen_date_name()
+    filetypes = [('Custom .json file', '*.json')]
+    raw_file_path = filedialog.asksaveasfilename(
+                                                 initialdir = indir,
+                                                 defaultextension = '.json',
+                                                 filetypes = filetypes,
+                                                 initialfile = defaultname,
+                                                 parent = APP)
+    if raw_file_path:
+        file_path = os.path.normpath(raw_file_path)
+        out = {
+            "shape": APP.main_iw.get_shape(),
+            "spacing": APP.main_iw.voxel_size.text,
+            "layers": APP.layersystem.get_layers_data()
+        }        
+
+        with open(file_path, 'w+') as outfile:
+            json.dump(out, outfile)
+
+
 def export_nrrds():
-    indir = os.path.join(CURRDIR, "output")
     ttl = "Select folder to output to"
     raw_file_path = filedialog.askdirectory(title = ttl, parent = APP)
     if raw_file_path:
@@ -1692,7 +1804,7 @@ def export_model_folder():
     if raw_file_path:
         file_path = os.path.normpath(raw_file_path)
         TASKMODEL.export_model(copy.deepcopy(APP.main_mvw.data), file_path)
-
+        
 
 def new_model():
     TASKMODEL.setup_template()

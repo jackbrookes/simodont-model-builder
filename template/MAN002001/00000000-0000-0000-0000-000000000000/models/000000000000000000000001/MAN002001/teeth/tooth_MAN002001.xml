@@ -19,21 +19,51 @@
         </Color>
       </Segment>
 
-      <Segment name="Target" segmentId="1" >
+      <Segment name="Segment 1" segmentId="1" >
         <Color whichChoice="-1" >
-          <UniformColor name="Default highlight" color="1 0 0 1" />
+          <UniformColor name="Default highlight" color="0 0 0 1" />
         </Color>
       </Segment>
 
-      <Segment name="Leeway" segmentId="2" >
+      <Segment name="Segment 2" segmentId="2" >
         <Color whichChoice="-1" >
-          <UniformColor name="Default highlight" color="0 1 0 1" />
+          <UniformColor name="Default highlight" color="0 0 0 1" />
         </Color>
       </Segment>
 
-      <Segment name="Container" segmentId="3" >
+      <Segment name="Segment 3" segmentId="3" >
         <Color whichChoice="-1" >
-          <UniformColor name="Default highlight" color="0 1 0 1" />
+          <UniformColor name="Default highlight" color="0 0 0 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Segment 4" segmentId="4" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0 0 0 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Segment 5" segmentId="5" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0 0 0 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Segment 6" segmentId="6" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0 0 0 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Segment 7" segmentId="7" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0 0 0 1" />
+        </Color>
+      </Segment>
+
+      <Segment name="Segment 8" segmentId="8" >
+        <Color whichChoice="-1" >
+          <UniformColor name="Default highlight" color="0 0 0 1" />
         </Color>
       </Segment>
 

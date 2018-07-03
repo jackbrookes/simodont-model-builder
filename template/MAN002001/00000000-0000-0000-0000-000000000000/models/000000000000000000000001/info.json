@@ -3,7 +3,7 @@
     "copyright": "000000000000000000000001",
     "name": "MAN002001",
     "description": {
-      "en-US" : ""
+      "en-US" : "Model generated from Simodont Model Builder: https://github.com/jackbrookes/simodont-model-builder"
     },
     "type": "permanent",
     "preview": "screenshot.png",
@@ -18,16 +18,21 @@
   { 
     "idealPreps" : [],
     "segments" : [
-      "Empty", 
-      "Target", 
-      "Leeway", 
-      "Container"
+      "Empty",
+      "Segment 1",
+      "Segment 2",
+      "Segment 3",
+      "Segment 4",
+      "Segment 5",
+      "Segment 6",
+      "Segment 7",
+      "Segment 8"
     ], 
     "position" : 11,
     "x3d" : null, 
     "definition" : null, 
     "description" : { 
-      "en-US" : "" 
+      "en-US" : "Model generated from Simodont Model Builder: https://github.com/jackbrookes/simodont-model-builder" 
     }, 
     "photos" : { 
       "intraoral" : [], 
