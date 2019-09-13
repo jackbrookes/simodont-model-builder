@@ -28,6 +28,8 @@ Tested on Windows 10 with Python 3.6.
 > pip install -r requirements.txt
 ```
 
+(On windows you might need to [manually install numpy](https://stackoverflow.com/questions/41217793/how-to-install-numpymkl-for-python-2-7-on-windows-64-bit))
+
 5. Run the GUI
 
 ```
