@@ -59,17 +59,22 @@ def load_generators():
     gens = []
     for g in genfiles:
         mod_name, file_ext = os.path.splitext(os.path.split(g)[-1])
-        if file_ext.lower() == '.py':
-            py_mod = imp.load_source(mod_name, g)
-            ispy = True
-        elif file_ext.lower() == '.pyc':
-            py_mod = imp.load_compiled(mod_name, g)
-            ispy = True
-        else:
-            ispy = False
+        try:
+            if file_ext.lower() == '.py':
+                py_mod = imp.load_source(mod_name, g)
+                ispy = True
+            elif file_ext.lower() == '.pyc':
+                py_mod = imp.load_compiled(mod_name, g)
+                ispy = True
+            else:
+                ispy = False
 
-        if ispy and hasattr(py_mod, "MainFrame"):
-            gens.append(Generator(py_mod))
+            if ispy and hasattr(py_mod, "MainFrame"):
+                gens.append(Generator(py_mod))
+            
+        except ImportError as e:
+            print("Could not load generator " + g + ": Missing \"" + e.name + "\"")
+            continue
 
     return gens
 
@@ -440,11 +445,13 @@ class LayerSystem(tk.Frame):
     def layers_from_dictlist(self, layerlist):
         for layer in layerlist:
             if layer["type"] == "mask":
+                data = np.array(layer["maskdata"])
                 newlayer = self.Mask(
-                    self, layer["data"], layer["name"], layer["gen"])                
+                    self, data, layer["name"], layer["gen"])                
             elif layer["type"] == "layer":
+                data = {k: np.array(v) for k, v in layer["data"].items()}
                 newlayer = self.Layer(
-                    self, layer["data"], layer["name"], layer["gen"])
+                    self, data, layer["name"], layer["gen"])
                 newlayer.set_composites(layer["compmodes"])
                 newlayer.set_opacities(layer["opacities"])
 
@@ -704,6 +711,7 @@ class LayerSystem(tk.Frame):
             self.grid_propagate(0)
             self.create_icons("mask")
             self.maskdata = maskdata.squeeze() if maskdata is not None else 1
+            self.gen = gen
             self.layer_name_var = tk.StringVar()
             self.layer_name_var.set(name)
             # source
@@ -729,16 +737,11 @@ class LayerSystem(tk.Frame):
             self.parent.render()
 
         def to_dict(self):
-            data = {}
-            for k in self.data:
-                if not self.data[k] is None:
-                    data[k] = self.data[k].tolist()
-
             return {
                 "type": "mask",
                 "name": self.layer_name_var.get(),
                 "gen": self.gen,
-                "data": data,
+                "maskdata": self.maskdata.tolist(),
             }
 
     class Layer(LayerObject):
